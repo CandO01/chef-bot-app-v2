@@ -67,7 +67,7 @@ function Body() {
         <p style={{fontSize: 20, color: 'whitesmoke'}}>Please wait while we prepare your delicious menu</p>
       </section>}
 
-      <section>
+      <section style={{color:'white'}}>
         <ReactMarkdown>
           {recipe}
         </ReactMarkdown>
