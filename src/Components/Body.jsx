@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import waitingIcon from '../assets/waiting.gif'
 import ReactMarkdown from 'react-markdown'
@@ -11,6 +11,15 @@ function Body() {
   const [loading, setLoading] = useState(false)
   const [recipe, setRecipe] = useState("")
 
+  const recipeSection = useRef(null)
+  console.log(recipeSection)
+
+  useEffect(()=>{
+    if(recipeSection.current !==null && recipe !==""){
+      recipeSection.current.scrollIntoView({behavior: 'smooth'})
+    }
+  }, [recipe])
+
   const newIngredients = ingredients.map((cookingLists)=>{
       return (
         <li key={cookingLists}>{cookingLists}</li>
@@ -20,7 +29,7 @@ function Body() {
   const getIngredients = (formData)=>{
      const ingredintsFromInputField = formData.get('ingredients')
     if(!ingredintsFromInputField) return
-    
+
      setIngredients((oldIngredients)=>{
       return [...oldIngredients, ingredintsFromInputField]
      })
@@ -56,7 +65,7 @@ function Body() {
       </section>}
 
       {ingredients.length > 3 ? <section className='recipe-section'>
-        <div>
+        <div ref={recipeSection}>
           <h2>Ready for a recipe?</h2>
           <p> Generate recipe from the list of the ingredients</p>
         </div>
